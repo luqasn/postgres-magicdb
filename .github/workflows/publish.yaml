@@ -28,7 +28,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: luqasn/postgres-magicdb
+          images: ${{ github.repository }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
