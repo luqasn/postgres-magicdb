@@ -10,7 +10,8 @@ services:
       - "5433:5432"
 
   proxy:
-    build: image
+#    build: image
+    image: luqasn/postgres-magicdb:latest
     environment:
       TARGET_USER: postgres
       TARGET_PASSWORD: secret
