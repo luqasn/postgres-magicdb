@@ -1,7 +1,5 @@
 #!/bin/sh
 
-# read "config"
-. ./target.env
 # read "input" (we only use target database)
 . /dev/stdin
 
