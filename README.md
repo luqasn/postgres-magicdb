@@ -3,3 +3,5 @@ PostgreSQL proxy that allows connecting with any credentials and any db, creatin
 Useful for integration testing.
 
 DON'T USE IN PRODUCTION.
+
+Uses https://github.com/KnifeMaster007/pgAuthProxy under the hood.
