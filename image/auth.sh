@@ -1,10 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
-# read "input" (we only use target database)
-cp /dev/stdin input.vars
-. ./input.vars
+set -eo pipefail -o nounset
+# read "input" 
+INPUT=$(</dev/stdin)
+# extract desired database name
+database=$(echo -n "$INPUT" | grep '^database=.*$' |  tr -d '\n' | cut -d'=' -f2-)
 
-set -eo nounset
 # generate hashed pw to return
 md5=$(printf '%s' "$TARGET_PASSWORD$TARGET_USER" | md5sum | cut -d ' ' -f 1)
 # create database requested by user on demand if it does not exist
@@ -12,9 +13,9 @@ echo "SELECT 'CREATE DATABASE $database' WHERE NOT EXISTS (SELECT FROM pg_databa
 
 # return connection info to proxy
 # keep original options intact
-cat input.vars
+# but override user
 cat << END
-database=$database
+$INPUT
 user=$TARGET_USER
 _META_TARGET_HOST=$TARGET_HOST
 _META_TARGET_CRED=md5$md5
